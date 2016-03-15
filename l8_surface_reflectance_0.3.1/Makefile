@@ -25,7 +25,7 @@ tifs:${tifs}
 
 ${tifs}:%/ref.tif:
 		[[ -f LC8044033$*LGN00.xml ]] || tar -xzf data/LC8044033$*-SC*.tar.gz
-		[[ -f LC8044033$*LGN00.xml ]] || tar -xzf data/LC8044033$*-SC*.tar.gz
+		[[ -f LC8044034$*LGN00.xml ]] || tar -xzf data/LC8044034$*-SC*.tar.gz
 		[[ -d $* ]] || mkdir $*
 		for b in ${bands}; do\
 				${gdal_merge} -o $*/$$b.tif -ul_lr ${ul_lr} -n -9999 LC804403[34]$*LGN00_$$b.tif; \
@@ -35,6 +35,6 @@ ${tifs}:%/ref.tif:
 		${gdal_merge} -o $*/cfmask.tif -ul_lr ${ul_lr} -n 255 LC804403[34]$*LGN00_cfmask.tif;\
 		${gdal_merge} -o $*/cfmask_conf.tif -ul_lr ${ul_lr} -n 0 LC804403[34]$*LGN00_cfmask_conf.tif;\
 		${gdal_merge} -separate -o $@ $$list $*/sr_cloud.tif;\
-		${gdal_merge} -separate -o $*_cf.tif $*/cfmask.tif $*/cfmask_conf.tif;\
+#		${gdal_merge} -separate -o $*/cf.tif $*/cfmask.tif $*/cfmask_conf.tif;\
 		rm -f LC804403[34]$*LGN00*;\
 		rm -f $$list
